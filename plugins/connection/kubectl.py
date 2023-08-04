@@ -233,7 +233,7 @@ class Connection(ConnectionBase):
             self._file_to_delete = None
 
     def _build_exec_cmd(self, cmd):
-    """Build the local kubectl exec command to run cmd on remote_host"""
+        """Build the local kubectl exec command to run cmd on remote_host"""
         local_cmd = [self.transport_cmd]
         censored_local_cmd = [self.transport_cmd]
     
@@ -292,8 +292,8 @@ class Connection(ConnectionBase):
             exec_options += ["-c", self.get_option(container_arg_name)]
             censored_exec_options += ["-c", self.get_option(container_arg_name)]
     
-        local_cmd += ["--"] + cmd + exec_options
-        censored_local_cmd += ["--"] + cmd + censored_exec_options
+        local_cmd += exec_options + ["--"] + cmd
+        censored_local_cmd += censored_exec_options + ["--"] + cmd
     
         return local_cmd, censored_local_cmd
 
